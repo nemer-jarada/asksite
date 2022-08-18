@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 
@@ -13,6 +14,10 @@ use App\Http\Controllers\SiteController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::prefix('admin')->name('admin.')->group(function() {
+    // Route::get('/', AdminController::class, 'index')->name('index');
+});
 
 Route::get('/', [SiteController::class, 'index'])->name('index');
 Route::get('/question/{id?}', [SiteController::class, 'single'])->name('single');
