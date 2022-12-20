@@ -38,24 +38,25 @@
 
 
                         @foreach ($articals as $artical)
-
                             <div class="col m4 s12">
                                 <div class="blogs mb-30 hieght-tiger">
                                     <div class="card">
                                         <div class="card-image">
-                                            <img src="{{ $artical->image }}" alt="Image">
+                                            <img src="{{ asset('uploads/images/articals/' . $artical->image) }}"
+                                                alt="Image">
 
                                         </div>
                                         <!-- /.card-image -->
                                         <div class="card-content w100dt min-heigh">
                                             <p>
-                                                <a href="#" class="tag left w100dt l-blue mb-25">{{ $artical->catartical->name }}</a>
+                                                <a href="#"
+                                                    class="tag left w100dt l-blue mb-25">{{ $artical->catartical->name }}</a>
                                             </p>
                                             <a href="{{ route('oneartical', $artical->id) }}" class="card-title font-tiger">
                                                 {{ Str::words($artical->title, 9, '...') }}
                                             </a>
                                             <p class="mb-30">
-                                                {{ Str::words($artical->artical, 25,'...') }}
+                                                {{ Str::words($artical->artical, 25, '...') }}
                                             </p>
                                             <ul class="post-mate-time left">
                                                 <li>
@@ -72,7 +73,8 @@
                                             <ul class="post-mate right">
                                                 <li class="comment">
                                                     <a href="#">
-                                                        <i class="icofont icofont-comment"></i> {{ $artical->comment->count() }}
+                                                        <i class="icofont icofont-comment"></i>
+                                                        {{ $artical->comment->count() }}
                                                     </a>
                                                 </li>
                                             </ul>

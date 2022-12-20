@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+
 class Like extends Model
 {
     use HasFactory, SoftDeletes;
@@ -23,5 +24,4 @@ class Like extends Model
     {
         return $this->belongsTo(Question::class)->withDefault();
     }
-
 }

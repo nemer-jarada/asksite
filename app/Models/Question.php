@@ -15,7 +15,7 @@ class Question extends Model
 
     protected $guarded = [];
 
-    public $with = ['like', 'user', 'category', 'answer'];
+    public $with = ['user', 'category', 'answer', 'like'];
 
     public function answer()
     {

@@ -40,7 +40,7 @@
                     <div class="blogs mb-30">
                         <div class="card">
                             <div class="card-image">
-                                <img src="{{ $articals->image }}" alt="Image">
+                                <img src="{{ asset('uploads/images/articals/' . $articals->image) }}" alt="Image">
                             </div>
                             <!-- /.card-image -->
                             <div class="card-content w100dt">
@@ -119,22 +119,23 @@
                                 <!-- colm6 -->
                             @endif
                             @if ($next)
-                            <div class="col m6 s12">
-                                <div class="sb-nxt-post">
-                                    <div class="pn-img right">
-                                        <img src="{{ $articals->image }}" alt="Image">
-                                    </div>
-                                    <div class="pn-text right-align">
-                                        <p class="title-name mb-10">Lorem ipsum dolor sit amet
-                                            consectetur</p>
+                                <div class="col m6 s12">
+                                    <div class="sb-nxt-post">
+                                        <div class="pn-img right">
+                                            <img src="{{ $articals->image }}" alt="Image">
+                                        </div>
+                                        <div class="pn-text right-align">
+                                            <p class="title-name mb-10">Lorem ipsum dolor sit amet
+                                                consectetur</p>
 
-                                            <a href="{{ route('oneartical', $next->id) }}" class="prv-nxt-btn l-blue">التالي<i
+                                            <a href="{{ route('oneartical', $next->id) }}"
+                                                class="prv-nxt-btn l-blue">التالي<i
                                                     class="icofont icofont-caret-right"></i></a>
+                                        </div>
                                     </div>
+                                    <!-- /.sb-nxt-post -->
                                 </div>
-                                <!-- /.sb-nxt-post -->
-                            </div>
-                            <!-- colm6 -->
+                                <!-- colm6 -->
                             @endif
                         </div>
                         <!-- row -->
@@ -187,8 +188,22 @@
                         <div class="sidebar-title center-align">
                             <h2>اترك تعليقك</h2>
                         </div>
+                        <form class="comment-area w100dt" action="{{ route('comment') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="form-item">
 
-                        <form class="comment-area w100dt" action="#">
+                                        <input type="text" name="artical_id" value="{{ $articals->id }}" hidden>
+                                        <textarea name='comment' id="textarea1" class="materialize-textarea"></textarea>
+                                        <label for="textarea1">Comment</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- row -->
+                            <button type="submit" class="custom-btn waves-effect waves-light right">تعليق</button>
+                        </form>
+                        {{-- <form class="comment-area w100dt" action="#">
                             <div class="row">
 
                                 <div class="col s12">
@@ -200,7 +215,7 @@
                             </div>
                             <!-- row -->
                             <button type="button" class="custom-btn waves-effect waves-light right">تقديم</button>
-                        </form>
+                        </form> --}}
                         <!-- /.comment-area -->
                     </div>
                     <!-- /.leave-comment -->

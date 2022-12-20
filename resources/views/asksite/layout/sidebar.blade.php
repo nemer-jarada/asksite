@@ -2,23 +2,63 @@
 
     <div class="sidebar-subscribe w100dt mb-30">
         <div class="sidebar-title center-align">
-            <h2>تسجيل الدخول</h2>
+
+            <div class="subscribe">
+                @if (Auth::guest())
+                    <h2>تسجيل الدخول</h2>
+                    <form class="user" method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="form-group">
+                            <input name="email" type="email"
+                                class="form-control form-control-user @error('email') is-invalid @enderror"
+                                id="email" aria-describedby="emailHelp" placeholder="Enter Email Address..."
+                                value="{{ old('email') }}" autocomplete="email" autofocus>
+                            @error('email')
+                                <small class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input name="password" type="password"
+                                class="form-control form-control-user @error('password') is-invalid @enderror"
+                                id="exampleInputPassword" placeholder="Password" autocomplete="current-password">
+                            @error('password')
+                                <small class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox small">
+                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                <label class="custom-control-label" for="customCheck">Remember
+                                    Me</label>
+                            </div>
+                        </div>
+                        <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
+                    </form>
+                @elseif (Auth::check())
+                    Welcome : {{ Auth::user()->name }}
+                    <br>
+                    <a class="dropdown-item btn btn-danger" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        {{ __('site.Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="post">
+                        @csrf
+                    </form>
+                @endif
+            </div>
+
+
+
+
         </div>
         <!-- /.sidebar-title -->
 
-        <div class="subscribe">
-            <form action="#">
-                <div class="input-field mb-30">
-                    <input id="email" type="email" class="validate">
-                    <label class="left-align" for="email">Email</label>
-                </div>
-                <div class="input-field">
-                    <input id="password" type="password" class="validate">
-                    <label class="left-align" for="password">Password</label>
-                </div>
-                <a class="waves-effect waves-light">Sign in</a>
-            </form>
-        </div>
+
         <!-- /.subscribe -->
 
     </div>
@@ -38,7 +78,7 @@
             @foreach ($articals as $artical)
                 <div class="card">
                     <div class="card-image mb-10">
-                        <img src="{{ $artical->image }}" alt="Image">
+                        <img src="{{ asset('uploads/images/articals/' . $artical->image) }}" alt="Image">
                         <span class="effect"></span>
                     </div>
                     <!-- /.card-image -->
@@ -55,8 +95,7 @@
                         <ul class="post-mate-time left">
                             <li>
                                 <p class="hero left">
-                                    By - <a href="#"
-                                        class="l-blue">{{ $artical->user->name }}</a>
+                                    By - <a href="#" class="l-blue">{{ $artical->user->name }}</a>
                                 </p>
                             </li>
                         </ul>

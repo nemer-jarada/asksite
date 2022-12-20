@@ -10,6 +10,7 @@
             <nav class="breadcrumb-nav w100dt">
                 <div class="page-name hide-on-small-only left">
                     <h4>SINGLE BLOG</h4>
+
                 </div>
                 <div class="nav-wrapper right">
                     <a href="{{ route('index') }}" class="breadcrumb">Home</a>
@@ -24,11 +25,6 @@
     </section>
     <!-- /.breadcrumb-section -->
     <!-- ==================== header-section End ====================-->
-
-
-
-
-
     <!-- ==================== single-blog-section start ====================-->
     <section id="single-blog-section" class="single-blog-section w100dt mb-50">
         <div class="container">
@@ -102,32 +98,35 @@
 
                     <div class="prv-nxt-post w100dt mb-30">
                         <div class="row">
+                            {{-- <a href="{{ route( 'blog.show', $next->id ) }}">Next</a> --}}
 
                             <div class="col m6 s12">
-                                <div class="sb-prv-post">
-                                    <div class="pn-text left-align">
+                                @if ($prev_qu)
+                                    <div class="sb-prv-post">
+                                        <div class="pn-text left-align">
 
-                                        <p class="title-name mb-10">{{ Str::words($prev_qu->question, '12') }}</p>
-                                        <a href="{{ route('single', $prev_qu->id) }}" class="prv-nxt-btn l-blue"><i
-                                                class="icofont icofont-caret-left"></i>السؤال السابق</a>
+                                            <p class="title-name mb-10">{{ Str::words($prev_qu->question, '12') }}</p>
+                                            <a href="{{ route('single', $prev_qu->id) }}" class="prv-nxt-btn l-blue"><i
+                                                    class="icofont icofont-caret-left"></i>السؤال السابق</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- /.sb-prv-post -->
+                                    <!-- /.sb-prv-post -->
+                                @endif
                             </div>
                             <!-- colm6 -->
-
                             <div class="col m6 s12">
-                                <div class="sb-nxt-post">
-                                    <div class="pn-text right-align">
-                                        <p class="title-name mb-10">{{ Str::words($next_qu->question, '12') }}</p>
-                                        <a href="{{ route('single', $next_qu->id) }}" class="prv-nxt-btn l-blue">السؤال
-                                            التالي <i class="icofont icofont-caret-right"></i></a>
+                                @if ($next_qu)
+                                    <div class="sb-nxt-post">
+                                        <div class="pn-text right-align">
+                                            <p class="title-name mb-10">{{ Str::words($next_qu->question, '12') }}</p>
+                                            <a href="{{ route('single', $next_qu->id) }}" class="prv-nxt-btn l-blue">السؤال
+                                                التالي <i class="icofont icofont-caret-right"></i></a>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- /.sb-nxt-post -->
+                                    <!-- /.sb-nxt-post -->
+                                @endif
                             </div>
                             <!-- colm6 -->
-
                         </div>
                         <!-- row -->
                     </div>
@@ -188,17 +187,20 @@
                             <h2>اترك إجابتك</h2>
                         </div>
 
-                        <form class="comment-area w100dt" action="#">
+                        <form class="comment-area w100dt" action="{{ route('answer') }}" method="POST">
+                            @csrf
                             <div class="row">
                                 <div class="col s12">
                                     <div class="form-item">
-                                        <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                        <label for="textarea1">Textarea</label>
+                                        <input type="text" name="question_id" value="{{ $question->id }}" hidden>
+                                        <textarea name='answer' id="textarea1" class="materialize-textarea"></textarea>
+                                        <label for="textarea1">Answer</label>
                                     </div>
                                 </div>
                             </div>
                             <!-- row -->
-                            <button type="button" class="custom-btn waves-effect waves-light right">تقديم الإجابة</button>
+                            <button type="submit" class="custom-btn waves-effect waves-light right">تقديم
+                                الإجابة</button>
                         </form>
                         <!-- /.comment-area -->
                     </div>

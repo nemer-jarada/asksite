@@ -65,10 +65,18 @@
                                 <i class="icofont icofont-navigation-menu"></i>
                             </a>
                             <ul id="nav-mobile" class="main-menu center-align hide-on-med-and-down">
-                                <li class="{{ request()->routeIs('index') ? 'active' : '' }}"><a href="{{ route('index') }}">الرئيسية</a></li>
-                                <li class="{{ request()->routeIs('articals') ? 'active' : '' }}"><a href="{{ route('articals') }}">المقالات</a></li>
-
-                                <li  class="{{ request()->routeIs('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">اتصل بنا</a></li>
+                                <li class="{{ request()->routeIs('index') ? 'active' : '' }}"><a
+                                        href="{{ route('index') }}">الرئيسية</a></li>
+                                <li class="{{ request()->routeIs('articals') ? 'active' : '' }}"><a
+                                        href="{{ route('articals') }}">المقالات</a></li>
+                                <li class="{{ request()->routeIs('contact') ? 'active' : '' }}"><a
+                                        href="{{ route('contact') }}">اتصل بنا</a></li>
+                                @if (Auth::check() && Auth::user()->type !== 'user')
+                                    <li class="{{ request()->routeIs('contact') ? 'active' : '' }}"><a
+                                            href="{{ route('admin.index') }}">Admin</a></li>
+                                @elseif (!Auth::check())
+                                    <li><a href="{{ route('login') }}">Login</a></li>
+                                @endif
                             </ul>
                             <!-- /.main-menu -->
 
@@ -136,12 +144,13 @@
             <ul class="footer-social-links w100dt center-align mb-30">
                 <li><a href="https://www.facebook.com/nemermj/" target="_blank" class="facebook">FACEBOOK</a></li>
                 <li><a href="https://twitter.com/NJarada" target="_blank" class="twitter">TWITTER</a></li>
-                <li><a href="https://www.instagram.com/nemer_jaradh/"  target="_blank" class="instagram">INSTAGRAM</a></li>
+                <li><a href="https://www.instagram.com/nemer_jaradh/" target="_blank" class="instagram">INSTAGRAM</a>
+                </li>
             </ul>
 
             <p class="center-align">
                 Made with <i class="icofont icofont-heart-alt l-red"></i> by
-                <a class="N-blue">TIGER MJ</a>
+                <a class="N-blue">TIGER MJ </a>
             </p>
 
         </div>

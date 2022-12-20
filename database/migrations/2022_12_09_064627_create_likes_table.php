@@ -14,12 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('likes', function (Blueprint $table) {
-            $table->id();
-            $table->boolean('likes');
-            $table->foreignId('question_id');
-            $table->foreignId('user_id');
+            $table->bigIncrements('id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->morphs('likeable');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
